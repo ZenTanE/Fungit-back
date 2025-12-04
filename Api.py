@@ -1,7 +1,11 @@
 from RequestHandler import RequestHandler
+from Connection import connection as db
 from flask import Flask, jsonify, request as req
 
 app = Flask(__name__)
+
+if db.connection is None:
+    db.initConnection()
 
 @app.route("/chatbot-messages/", methods = ["GET"])
 def getChatbotMessages():
