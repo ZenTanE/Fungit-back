@@ -1,4 +1,4 @@
-class User:
+class Search:
     def __init__(self, idUser, idMushroom):
         self.SetIdUser(idUser)
         self.SetIdMushroom(idMushroom)
