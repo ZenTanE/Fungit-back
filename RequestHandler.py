@@ -5,11 +5,11 @@ class RequestHandler:
         pass
 
     @staticmethod
-    def identifyMushroom():
+    def identifyMushroom(mushroom):
         pass
 
     @staticmethod
-    def askChatbot():
+    def askChatbot(message):
         pass
 
     @staticmethod

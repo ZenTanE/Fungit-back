@@ -9,11 +9,13 @@ def getChatbotMessages():
 
 @app.route("/identify-mushroom/", methods = ["POST"])
 def identifyMushroom():
-    return jsonify(RequestHandler.identifyMushroom())
+    data = req.form.to_dict()
+    return jsonify(RequestHandler.identifyMushroom(data))
 
 @app.route("/ask-chatbot/", methods=["POST"])
 def askChatbot():
-    return jsonify(RequestHandler.askChatbot())
+    data = req.form.to_dict()
+    return jsonify(RequestHandler.askChatbot(data))
 
 @app.route("/train-model/", methods=["PATCH"])
 def trainModel():
