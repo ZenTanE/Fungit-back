@@ -2,19 +2,21 @@ from entities.user import User
 from Connection import connection as db
 
 class UserDAO:
-    def __init__(self):
-        self.__connection = db.connection
+    # def __init__(self):
+    #     db.connection = db.connection
         
-    def insert(self, user):
-        mycursor = self.__connection.cursor()
+    @staticmethod
+    def insert(user):
+        mycursor = db.connection.cursor()
         sql = "INSERT INTO users (name, surname, email, password) VALUES (%s, %s, %s, %s)"
         values = (user.GetName(),user.GetSurname(),user.GetEmail(),user.GetPassword(),)
         mycursor.execute(sql, values)
-        self.__connection.commit()
+        db.connection.commit()
         return (f"Se han añadido {mycursor.rowcount} valores")
-
-    def select(self):
-        mycursor = self.__connection.cursor()
+    
+    @staticmethod
+    def select():
+        mycursor = db.connection.cursor()
         mycursor.execute("SELECT id_user, name, surname, email FROM users")
         myresult = mycursor.fetchall()
         users = []
