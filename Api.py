@@ -24,6 +24,11 @@ def test():
     predictor = MultiModalPredictor.load("f{MODEL_PATH}mushroom_model")
     return jsonify(RequestHandler.test(data, predictor))
 
+@app.route("/dummy/", methods = ["POST"])
+def dummy():
+    data = req.form.to_dict()
+    return jsonify(RequestHandler.test(data))
+
 @app.route("/ask-chatbot/", methods=["POST"])
 def askChatbot():
     data = req.form.to_dict()
