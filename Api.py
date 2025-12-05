@@ -6,6 +6,7 @@ from autogluon.multimodal import MultiModalPredictor
 
 MODEL_PATH = "../data/"
 app = Flask(__name__)
+predictor = MultiModalPredictor.load("f{MODEL_PATH}mushroom_model")
 
 if db.connection is None:
     db.initConnection()
@@ -23,7 +24,6 @@ def identifyMushroom():
 @app.route("/test/", methods = ["POST"])
 def test():
     data = req.form.to_dict()
-    predictor = MultiModalPredictor.load("f{MODEL_PATH}mushroom_model")
     return jsonify(RequestHandler.test(data, predictor))
 
 @app.route("/dummy/", methods = ["POST"])
