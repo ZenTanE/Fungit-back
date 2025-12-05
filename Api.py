@@ -1,7 +1,9 @@
 from RequestHandler import RequestHandler
 from Connection import connection as db
 from flask import Flask, jsonify, request as req
+from autogluon.multimodal import MultiModalPredictor
 
+MODEL_PATH = "../data/"
 app = Flask(__name__)
 
 if db.connection is None:
@@ -15,6 +17,12 @@ def getChatbotMessages():
 def identifyMushroom():
     data = req.form.to_dict()
     return jsonify(RequestHandler.identifyMushroom(data))
+
+@app.route("/test/", methods = ["POST"])
+def test():
+    data = req.form.to_dict()
+    predictor = MultiModalPredictor.load("f{MODEL_PATH}mushroom_model")
+    return jsonify(RequestHandler.test(data, predictor))
 
 @app.route("/ask-chatbot/", methods=["POST"])
 def askChatbot():
