@@ -1,6 +1,7 @@
 from RequestHandler import RequestHandler
 from Connection import connection as db
 from flask import Flask, jsonify, request as req
+from entities.images import Image
 from autogluon.multimodal import MultiModalPredictor
 
 MODEL_PATH = "../data/"
@@ -16,7 +17,8 @@ def getChatbotMessages():
 @app.route("/identify-mushroom/", methods = ["POST"])
 def identifyMushroom():
     data = req.form.to_dict()
-    return jsonify(RequestHandler.identifyMushroom(data))
+    image = Image(data)
+    return jsonify(RequestHandler.identifyMushroom(image))
 
 @app.route("/test/", methods = ["POST"])
 def test():

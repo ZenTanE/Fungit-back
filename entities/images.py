@@ -1,5 +1,5 @@
 class Image:
-    def __init__(self, imageLink, idUser, idImage=None):
+    def __init__(self, imageLink, idUser=None, idImage=None):
         self.__idImage = idImage
         self.SetImageLink(imageLink)
         self.SetIdUser(idUser)
