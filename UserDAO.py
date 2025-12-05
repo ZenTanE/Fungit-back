@@ -1,7 +1,4 @@
 from entities.user import User
-from entities.mushroom import Mushroom
-from entities.images import Image
-from entities.search import Mushroom
 from Connection import connection as db
 
 class UserDAO:
