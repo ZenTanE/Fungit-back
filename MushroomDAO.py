@@ -22,7 +22,7 @@ class MushroomDAO:
             myresult = mycursor.fetchall()
             mushrooms = []
             for row in myresult:
-                mushroom = mushroom(row[1], row[2], row[3], row[0])
+                mushroom = mushroom(row[1], row[2], row[0])
                 mushrooms.append(mushroom)
         else:
             mycursor = db.connection.cursor()
@@ -30,7 +30,7 @@ class MushroomDAO:
             row = mycursor.fetchone()
             mushrooms = []
             for row in myresult:
-                mushroom = mushroom(row[1], row[2], row[3], row[0])
+                mushroom = mushroom(row[1], row[2], row[0])
                 mushrooms.append(mushroom)
         return mushrooms
         
