@@ -6,7 +6,7 @@ from flask_cors import CORS
 from entities.images import Image
 from tensorflow.keras.models import load_model
 
-MODEL_PATH = "../data/"
+MODEL_PATH = "data/"
 app = Flask(__name__)
 CORS(app)
 
