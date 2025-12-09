@@ -1,6 +1,6 @@
 import json
 from RequestHandler import RequestHandler
-from Connection import connection as db
+# from Connection import connection as db
 from flask import Flask, jsonify, request as req
 from flask_cors import CORS
 from entities.images import Image
@@ -17,8 +17,8 @@ index_to_name = {v: k for k, v in class_dict.items()}
 
 predictor = load_model(f"{MODEL_PATH}mushroom_model_current.keras")
 
-if db.connection is None:
-    db.initConnection()
+# if db.connection is None:
+#     db.initConnection()
 
 @app.route("/chatbot-messages/", methods = ["GET"])
 def getChatbotMessages():
