@@ -1,12 +1,19 @@
+import json
 from RequestHandler import RequestHandler
 from Connection import connection as db
 from flask import Flask, jsonify, request as req
 from entities.images import Image
-from autogluon.multimodal import MultiModalPredictor
+from tensorflow.keras.models import load_model
 
 MODEL_PATH = "../data/"
 app = Flask(__name__)
-predictor = MultiModalPredictor.load("f{MODEL_PATH}mushroom_model")
+
+with open("mushroom_model_labels.json", "r", encoding="utf-8") as f:
+    class_dict = json.load(f)
+
+index_to_name = {v: k for k, v in class_dict.items()}
+
+predictor = load_model(f"{MODEL_PATH}mushroom_model_current.keras")
 
 if db.connection is None:
     db.initConnection()
@@ -17,9 +24,15 @@ def getChatbotMessages():
 
 @app.route("/identify-mushroom/", methods = ["POST"])
 def identifyMushroom():
-    data = req.form.to_dict()
-    image = Image(data)
-    return jsonify(RequestHandler.identifyMushroom(image))
+    if "file" not in req.files:
+        return jsonify({"error": "No file provided"}), 400
+
+    file = req.files["file"]
+    path = f"./temp/{file.filename}"
+    file.save(path)
+
+    image = Image(path)
+    return jsonify(RequestHandler.identifyMushroom(image, predictor))
 
 @app.route("/test/", methods = ["POST"])
 def test():
