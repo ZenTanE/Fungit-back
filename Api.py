@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request as req
 from flask_cors import CORS
 from entities.images import Image
 from tensorflow.keras.models import load_model
+import os
 
 MODEL_PATH = "data/"
 app = Flask(__name__)
@@ -54,3 +55,13 @@ def askChatbot():
 @app.route("/train-model/", methods=["PATCH"])
 def trainModel():
     return jsonify(RequestHandler.trainModel())
+
+@app.route("/")
+def home():
+    return jsonify({"status": "ok"})
+
+if __name__ == "__main__":
+    # Obtén el puerto de Render, por defecto 5000 para pruebas locales
+    port = int(os.environ.get("PORT", 5000))
+    # host='0.0.0.0' es obligatorio para que Render pueda enrutar
+    app.run(host="0.0.0.0", port=port)
