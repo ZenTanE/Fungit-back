@@ -2,11 +2,13 @@ import json
 from RequestHandler import RequestHandler
 from Connection import connection as db
 from flask import Flask, jsonify, request as req
+from flask_cors import CORS
 from entities.images import Image
 from tensorflow.keras.models import load_model
 
 MODEL_PATH = "../data/"
 app = Flask(__name__)
+CORS(app)
 
 with open(f"{MODEL_PATH}mushroom_model_labels.json", "r", encoding="utf-8") as f:
     class_dict = json.load(f)
