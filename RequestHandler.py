@@ -1,5 +1,5 @@
 import numpy as np
-from tensorflow.keras.processing.image import load_img, img_to_array
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
 class RequestHandler:
 
