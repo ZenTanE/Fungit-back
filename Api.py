@@ -8,7 +8,7 @@ from tensorflow.keras.models import load_model
 MODEL_PATH = "../data/"
 app = Flask(__name__)
 
-with open("mushroom_model_labels.json", "r", encoding="utf-8") as f:
+with open(f"{MODEL_PATH}mushroom_model_labels.json", "r", encoding="utf-8") as f:
     class_dict = json.load(f)
 
 index_to_name = {v: k for k, v in class_dict.items()}
