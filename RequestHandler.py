@@ -1,5 +1,4 @@
 import numpy as np
-from autogluon.multimodal import MultiModalPredictor
 from tensorflow.keras.processing.image import load_img, img_to_array
 
 class RequestHandler:
