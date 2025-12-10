@@ -8,12 +8,11 @@ class RequestHandler:
         pass
 
     @staticmethod
-    def identifyMushroom(image, predictor):
+    def identifyMushroom(image, predictor, index_to_name):
+        print("identifyMushroom")
         image_path = image.GetImageLink()
-        prediction = predictor.predict([image_path])
 
-        img_path = "image.jpg"
-        img = load_img(img_path, target_size=(224, 224))
+        img = load_img(image_path, target_size=(224, 224))
         x = img_to_array(img) / 255.0
         x = np.expand_dims(x, axis=0)
 
@@ -22,12 +21,12 @@ class RequestHandler:
         top3_index = prediction.argsort()[-3:][::-1]
         top3_probs = prediction[top3_index]
 
-        row = top3_probs.to_dict(orient="records")[0]
-
-        results = [
-            {"name": k, "score": float(v)}
-            for k, v in row.items()
-        ]
+        results = []
+        for idx, prob in zip(top3_index, top3_probs):
+            results.append({
+                "name": index_to_name[idx],
+                "score": float(prob)
+            })
 
         return {"results": results}
     

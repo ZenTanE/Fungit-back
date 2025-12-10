@@ -30,16 +30,18 @@ def identifyMushroom():
     if "file" not in req.files:
         return jsonify({"error": "No file provided"}), 400
 
+    os.makedirs("tmp", exist_ok=True)
+
     file = req.files["file"]
-    path = f"./temp/{file.filename}"
+    path = f"./tmp/{file.filename}"
     file.save(path)
 
     image = Image(path)
-    return jsonify(RequestHandler.identifyMushroom(image, predictor))
+    return jsonify(RequestHandler.identifyMushroom(image, predictor, index_to_name))
 
 @app.route("/test/", methods = ["POST"])
 def test():
-    data = req.form.to_dict()
+    data = req.file["file"]
     return jsonify(RequestHandler.test(data, predictor))
 
 @app.route("/dummy/", methods = ["POST"])
