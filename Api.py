@@ -23,7 +23,7 @@ predictor = load_model(f"{MODEL_PATH}mushroom_model_current.keras")
 chat_model = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
     temperature=0.3,
-    google_api_key=os.getenv("BOT_API_KEY")
+    google_api_key=os.getenv("GOOGLE_API_KEY")
 )
 
 # if db.connection is None:
