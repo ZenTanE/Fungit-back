@@ -58,9 +58,17 @@ def dummy():
     return jsonify(RequestHandler.test(data))
 
 @app.route("/ask-chatbot/", methods=["POST"])
-def askChatbot():
-    data = req.form.to_dict()
-    return jsonify(RequestHandler.askChatbot(data))
+def ask_chatbot():
+    message = req.get_data(as_text=True).strip()  # Get plain text from the body
+
+    if not message:
+        return "Message is required", 400  # Return plain text error message
+
+    # Pass the message to the RequestHandler to get a response from the chatbot
+    chatbot_response = RequestHandler.askChatbot(message, chat_model)
+
+    # Return the response as plain text
+    return chatbot_response
 
 @app.route("/get-mushroom-info/", methods=["POST"])
 def get_mushroom_info():

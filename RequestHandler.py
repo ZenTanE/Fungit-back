@@ -47,12 +47,14 @@ class RequestHandler:
             return "error"
 
     @staticmethod
-    def askChatbot(message):
-        pass
+    def askChatbot(message, chat_model):
+        # Get the response from the chatbot
+        response = chat_model.invoke([HumanMessage(content=message)])
+        
+        return response.content
     
     @staticmethod
     def getMushroomInfo(mushroom_name, chat_model):
-                # Prompt mejorado y más claro
         prompt = f"""Eres un experto en micología. Para el hongo llamado '{mushroom_name}', 
         proporciona la siguiente información EXCLUSIVAMENTE en formato JSON:
 
