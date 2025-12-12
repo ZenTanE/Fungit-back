@@ -1,5 +1,6 @@
 import numpy as np
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
+from langchain_core.messages import HumanMessage
 
 class RequestHandler:
 
@@ -48,6 +49,30 @@ class RequestHandler:
     @staticmethod
     def askChatbot(message):
         pass
+    
+    @staticmethod
+    def getMushroomInfo(mushroom_name, chat_model):
+                # Prompt mejorado y más claro
+        prompt = f"""Eres un experto en micología. Para el hongo llamado '{mushroom_name}', 
+        proporciona la siguiente información EXCLUSIVAMENTE en formato JSON:
+
+        INFORMACIÓN REQUERIDA:
+        1. ¿Es comestible? (Respuesta: "sí", "no")
+        2. ¿Dónde suelen crecer? (Breve descripción, máximo 20 palabras)
+        3. ¿Es venenoso? (Respuesta: "sí", "no" o "parcialmente")
+        4. ¿Cómo se suele cocinar/preparar? (Breve descripción, máximo 40 palabras)
+        5. Advertencias importantes sobre consumo (si aplica)
+
+        REGLAS IMPORTANTES:
+        - Si no conoces el hongo, déjalo claro en el inicio de la respuesta
+        - Sé preciso y basado en hechos científicos
+        - El idioma de respuesta es español
+        """
+        
+        # Get the response from the chatbot
+        response = chat_model.invoke(prompt)
+
+        return {"response": response.content}
 
     @staticmethod
     def trainModel():

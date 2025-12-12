@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request as req
 from flask_cors import CORS
 from entities.images import Image
 from tensorflow.keras.models import load_model
+from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 
 MODEL_PATH = "data/"
@@ -17,6 +18,13 @@ with open(f"{MODEL_PATH}mushroom_model_labels.json", "r", encoding="utf-8") as f
 index_to_name = {v: k for k, v in class_dict.items()}
 
 predictor = load_model(f"{MODEL_PATH}mushroom_model_current.keras")
+
+# Configurar el modelo de IA
+chat_model = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    temperature=0.3,
+    google_api_key=os.getenv("BOT_API_KEY")
+)
 
 # if db.connection is None:
 #     db.initConnection()
@@ -53,6 +61,17 @@ def dummy():
 def askChatbot():
     data = req.form.to_dict()
     return jsonify(RequestHandler.askChatbot(data))
+
+@app.route("/get-mushroom-info/", methods=["POST"])
+def get_mushroom_info():
+    data = req.get_json()
+    mushroom_name = data.get("mushroom_name")
+#    language = data.get("language", "es")  # Default to Spanish if not specified
+
+    if not mushroom_name:
+        return jsonify({"error": "Mushroom name is required"}), 400
+
+    return jsonify(RequestHandler.getMushroomInfo(mushroom_name, chat_model))
 
 @app.route("/train-model/", methods=["PATCH"])
 def trainModel():
