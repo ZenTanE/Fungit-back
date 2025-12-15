@@ -49,9 +49,9 @@ class RequestHandler:
     @staticmethod
     def askChatbot(message, chat_model):
         # Get the response from the chatbot
-        response = chat_model.invoke([HumanMessage(content=message)])
+        response = chat_model.invoke(message)
         
-        return response.content
+        return {"response": response.content}
     
     @staticmethod
     def getMushroomInfo(mushroom_name, chat_model):
