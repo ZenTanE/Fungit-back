@@ -21,7 +21,7 @@ predictor = load_model(f"{MODEL_PATH}mushroom_model_current.keras")
 
 # Configurar el modelo de IA
 chat_model = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
+    model="gemini-2.5-flash-lite",
     temperature=0.3,
     google_api_key=os.getenv("GOOGLE_API_KEY")
 )

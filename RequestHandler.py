@@ -59,16 +59,24 @@ class RequestHandler:
         proporciona la siguiente información EXCLUSIVAMENTE en formato JSON:
 
         INFORMACIÓN REQUERIDA:
-        1. ¿Es comestible? (Respuesta: "sí", "no")
-        2. ¿Dónde suelen crecer? (Breve descripción, máximo 20 palabras)
-        3. ¿Es venenoso? (Respuesta: "sí", "no" o "parcialmente")
-        4. ¿Cómo se suele cocinar/preparar? (Breve descripción, máximo 40 palabras)
-        5. Advertencias importantes sobre consumo (si aplica)
+        1. ¿Cuál es su nombre común? (Breve respuesta)
+        2. ¿Es comestible? (Respuesta: "sí", "no")
+        3. ¿Dónde suelen crecer? (Breve descripción, máximo 20 palabras)
+        4. ¿Es venenoso? (Respuesta: "sí", "no" o "parcialmente")
+        5. ¿Cómo se suele cocinar/preparar? (Breve descripción, máximo 40 palabras)
+        6. Advertencias importantes sobre consumo (si aplica)
 
         REGLAS IMPORTANTES:
+        - El json debe tener estos campos:
+          "nombre_cientifico":
+          "nombre_comun":
+          "es_comestible":
+          "donde_crecen":
+          "venenoso":
+          "como_cocinar":
+          "advetencias":
         - Si no conoces el hongo, déjalo claro en el inicio de la respuesta
         - Sé preciso y basado en hechos científicos
-        - El idioma de respuesta es español
         """
         
         # Get the response from the chatbot
