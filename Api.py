@@ -19,7 +19,6 @@ index_to_name = {v: k for k, v in class_dict.items()}
 
 predictor = load_model(f"{MODEL_PATH}mushroom_model_current.keras")
 
-# Configurar el modelo de IA
 chat_model = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash-lite",
     temperature=0.3,
@@ -71,7 +70,6 @@ def ask_chatbot():
 def get_mushroom_info():
     data = req.get_json()
     mushroom_name = data.get("mushroom_name")
-#    language = data.get("language", "es")  # Default to Spanish if not specified
 
     if not mushroom_name:
         return jsonify({"error": "Mushroom name is required"}), 400
@@ -87,7 +85,5 @@ def home():
     return jsonify({"status": "ok"})
 
 if __name__ == "__main__":
-    # Obtén el puerto de Render, por defecto 5000 para pruebas locales
     port = int(os.environ.get("PORT", 5000))
-    # host='0.0.0.0' es obligatorio para que Render pueda enrutar
     app.run(host="0.0.0.0", port=port)

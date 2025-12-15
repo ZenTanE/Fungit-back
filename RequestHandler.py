@@ -10,7 +10,6 @@ class RequestHandler:
 
     @staticmethod
     def identifyMushroom(image, predictor, index_to_name):
-        print("identifyMushroom")
         image_path = image.GetImageLink()
 
         img = load_img(image_path, target_size=(224, 224))
@@ -33,7 +32,6 @@ class RequestHandler:
     
     @staticmethod
     def test(image, predictor):
-        # predictor = predictor
         image_path = image.GetImageLink()
         prediction = predictor.predict([image_path])
         return prediction[0]
@@ -48,7 +46,6 @@ class RequestHandler:
 
     @staticmethod
     def askChatbot(message, chat_model):
-        # Get the response from the chatbot
         response = chat_model.invoke(message)
         
         return {"response": response.content}
@@ -79,7 +76,6 @@ class RequestHandler:
         - Sé preciso y basado en hechos científicos
         """
         
-        # Get the response from the chatbot
         response = chat_model.invoke(prompt)
 
         return {"response": response.content}
