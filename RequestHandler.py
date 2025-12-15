@@ -29,20 +29,6 @@ class RequestHandler:
             })
 
         return {"results": results}
-    
-    @staticmethod
-    def test(image, predictor):
-        image_path = image.GetImageLink()
-        prediction = predictor.predict([image_path])
-        return prediction[0]
-    
-    @staticmethod
-    def dummy(image):
-        image_path = image.GetImageLink()
-        if image_path:
-            return "imagen recibida"
-        else:
-            return "error"
 
     @staticmethod
     def askChatbot(message, chat_model):

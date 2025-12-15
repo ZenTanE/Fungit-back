@@ -46,16 +46,6 @@ def identifyMushroom():
     image = Image(path)
     return jsonify(RequestHandler.identifyMushroom(image, predictor, index_to_name))
 
-@app.route("/test/", methods = ["POST"])
-def test():
-    data = req.file["file"]
-    return jsonify(RequestHandler.test(data, predictor))
-
-@app.route("/dummy/", methods = ["POST"])
-def dummy():
-    data = req.form.to_dict()
-    return jsonify(RequestHandler.test(data))
-
 @app.route("/ask-chatbot/", methods=["POST"])
 def ask_chatbot():
     data = req.get_json()
