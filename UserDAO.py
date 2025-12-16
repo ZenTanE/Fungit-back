@@ -34,6 +34,14 @@ class UserDAO:
         return users
     
     @staticmethod
+    def loginUser(password, email):
+        mycursor = db.connection.cursor()
+        mycursor.execute("SELECT id_user, name, surname, email FROM users WHERE email = %s AND password = %s",(email, password))
+        row = mycursor.fetchone()
+
+        return User(row[1], row[2], row[3], row[0])
+    
+    @staticmethod
     def removeUser(email):
         mycursor = db.connection.cursor()
         sql = "DELETE FROM users WHERE email = %s"

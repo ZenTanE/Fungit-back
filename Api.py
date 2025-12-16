@@ -70,6 +70,16 @@ def get_mushroom_info():
 def trainModel():
     return jsonify(RequestHandler.trainModel())
 
+@app.route("/login/", methods=["POST"])
+def login():
+    userInfo = req.get_json()
+    return jsonify(RequestHandler.login(userInfo))
+
+@app.route("/signup/", methods=["POST"])
+def signup():
+    userInfo = req.get_json()
+    return jsonify(RequestHandler.signup(userInfo))
+
 @app.route("/")
 def home():
     return jsonify({"status": "ok"})

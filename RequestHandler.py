@@ -1,6 +1,7 @@
 import numpy as np
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from langchain_core.messages import HumanMessage
+from UserDAO import *
 
 class RequestHandler:
 
@@ -65,7 +66,28 @@ class RequestHandler:
         response = chat_model.invoke(prompt)
 
         return {"response": response.content}
+    
+    @staticmethod
+    def login(userInfo):
+        email = userInfo.get("email")
+        password = userInfo.get("password")
 
+        UserDAO.loginUser(password, email)
+        
+        return {"message": "¡Se ha iniciado sesión correctamente!"}
+    
+    @staticmethod
+    def signup(userInfo):
+        name = userInfo.get("name")
+        surname = userInfo.get("surname")
+        email = userInfo.get("email")
+        password = userInfo.get("password")
+
+        user = User(name, surname, email, password)
+        UserDAO.addUser(user)
+
+        return {"message": "¡Se ha registrado correctamente!"}
+    
     @staticmethod
     def trainModel():
         pass
