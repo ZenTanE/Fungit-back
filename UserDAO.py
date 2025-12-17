@@ -1,10 +1,8 @@
 from entities.user import User
-from Connection import connection as db
+import Connection as db
 
 class UserDAO:
-    # def __init__(self):
-    #     db.connection = db.connection
-        
+
     @staticmethod
     def addUser(user):
         mycursor = db.connection.cursor()
